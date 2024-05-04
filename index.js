@@ -5,7 +5,7 @@ const app = express();
 const port = 3000;
 
 app.get("/", (req, res) => {
-    res.json({ "status": 200, "msg": "Crypto-API, Developed by sipc.ink, https://github.com/SIPC/Crypto-API", });
+    res.json({ "status": 200, "msg": "Crypto-API, Developed by sipc.ink", "github": "https://github.com/SIPC/Crypto-API", "docs": "https://1sup4cbcq2.apifox.cn" });
 });
 
 
