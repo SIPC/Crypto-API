@@ -1,11 +1,11 @@
-FROM node:8 as build
-
+FROM node:21-alpine AS build
 WORKDIR /app
-COPY package.json index.js ./
-RUN npm install
+COPY package.json package-lock.json ./
+RUN npm install --production
 
-FROM node:8-alpine
-
-COPY --from=build /app /
+FROM node:21-alpine
+WORKDIR /app
+COPY --from=build /app/node_modules ./node_modules
+COPY index.js lib.js ./
 EXPOSE 3000
-CMD ["npm", "start"]
+CMD ["node", "index.js"]

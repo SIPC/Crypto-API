@@ -1,5 +1,5 @@
 const express = require('express');
-const lib = require("./lib");
+const lib = require("./lib.js");
 
 const app = express();
 const port = 3000;
