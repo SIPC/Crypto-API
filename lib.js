@@ -3,6 +3,15 @@ async function Get_Address_type(address) {
     try {
         const response = await fetch(url);
         const html = await response.text();
+
+        if (response.url.includes("https://blockchair.com/ethereum")) {
+            return {
+                "status": 404,
+                "address": address,
+                "address_type": null
+            };
+        }
+
         // Get Coin type
         if (!response.url.includes("https://blockchair.com/search")) {
             const typestartIndex = html.indexOf('<h1 class="fw-bold inline va-middle">') + '<h1 class="fw-bold inline va-middle">'.length;
@@ -23,9 +32,11 @@ async function Get_Address_type(address) {
                     "address_type": null
                 };
             }
+
             const typestartIndex = html.indexOf('<span class="fs-14 fw-600 mr-5">') + '<span class="fs-14 fw-600 mr-5">'.length;
             const typeendIndex = html.indexOf('</span>', typestartIndex);
             const type = html.substring(typestartIndex, typeendIndex).trim().replace(/&thinsp;/g, '');
+            
             // return Coin address type
             return {
                 "status": 200,
@@ -46,7 +57,7 @@ async function Get_Address_info(crypto, address) {
     try {
         const response = await fetch(url);
         const html = await response.text();
-        if(response.status != 200){
+        if (response.status != 200) {
             return { "status": response.status, "msg": response.statusText };
         }
 
@@ -80,3 +91,5 @@ async function Get_Address_info(crypto, address) {
 }
 
 module.exports = { Get_Address_type, Get_Address_info };
+
+// Bitcoin Solana Dogecoin Litecoin Ripple
